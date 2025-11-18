@@ -1,4 +1,4 @@
-package com.example.mobilefinal; // (Hoặc package của bạn)
+package com.example.mobilefinal.Trip; // (Hoặc package của bạn)
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,10 +9,12 @@ import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 import android.app.DatePickerDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mobilefinal.R;
 import com.example.mobilefinal.database.AppDatabase;
 import com.example.mobilefinal.database.Trip;
 import com.google.android.material.textfield.TextInputEditText;
-import android.view.View;
+
 import java.util.Calendar;
 import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;

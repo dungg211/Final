@@ -3,6 +3,8 @@ package com.example.mobilefinal;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.mobilefinal.Trip.TripActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
@@ -37,10 +39,6 @@ public class MainActivity extends AppCompatActivity {
                 } else if (itemId == R.id.nav_trip) {
                     Intent tripIntent = new Intent(MainActivity.this, TripActivity.class);
                     startActivity(tripIntent);
-                    return true;
-                } else if (itemId == R.id.nav_profile) {
-                    Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
-                    startActivity(profileIntent);
                     return true;
                 }
                 return false;

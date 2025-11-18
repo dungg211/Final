@@ -1,8 +1,7 @@
-package com.example.mobilefinal;
+package com.example.mobilefinal.Trip;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
@@ -12,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 // Import các tệp mới
+import com.example.mobilefinal.R;
 import com.example.mobilefinal.adapters.TripAdapter;
 import com.example.mobilefinal.database.AppDatabase; // (Import AppDatabase)
 import com.example.mobilefinal.database.Trip;
@@ -93,11 +93,12 @@ public class TripActivity extends AppCompatActivity implements TripAdapter.OnTri
      * === BƯỚC 2: XỬ LÝ CLICK (ĐỂ SỬA) ===
      * Hàm này được gọi từ Adapter khi bạn bấm vào một item
      */
+
     @Override
     public void onTripClick(Trip trip) {
-        // Mở AddTripActivity, nhưng gửi ID theo
-        Intent intent = new Intent(TripActivity.this, EditTrip.class);
-        intent.putExtra("TRIP_ID", trip.id); // Gửi ID để "Sửa"
+        // SỬA Ở ĐÂY: Mở trang Detail mới
+        Intent intent = new Intent(TripActivity.this, TripDetailActivity.class);
+        intent.putExtra("TRIP_ID", trip.id);
         startActivity(intent);
     }
 }

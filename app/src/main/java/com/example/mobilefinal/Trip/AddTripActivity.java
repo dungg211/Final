@@ -1,4 +1,4 @@
-package com.example.mobilefinal;
+package com.example.mobilefinal.Trip;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mobilefinal.R;
 import com.example.mobilefinal.database.AppDatabase;
 import com.example.mobilefinal.database.Trip;
 import com.google.android.material.textfield.TextInputEditText;
