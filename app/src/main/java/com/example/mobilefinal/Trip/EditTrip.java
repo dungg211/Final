@@ -1,4 +1,4 @@
-package com.example.mobilefinal.Trip; // (Hoặc package của bạn)
+package com.example.mobilefinal.Trip; 
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,14 +19,14 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.Calendar;
 import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
-public class EditTripActivity extends AppCompatActivity { // (Tên class là EditTrip)
+public class EditTrip extends AppCompatActivity { 
 
     private TextInputEditText etName, etLocation, etDate, etLength, etParticipants;
     private CheckBox cbParking, cbPermit;
     private Spinner spinnerDifficulty;
     private Button btnUpdate;
     private Button btnDelete;   private AppDatabase database;
-    private Trip existingTrip = null; // Chuyến đi đang sửa
+    private Trip existingTrip = null; 
     private int tripId = -1;
 
     @Override
@@ -60,62 +60,43 @@ public class EditTripActivity extends AppCompatActivity { // (Tên class là Edi
             }
         });
         btnDelete.setOnClickListener(v -> {
-            // Hiển thị hộp thoại xác nhận (giống code của bạn)
             showDeleteConfirmationDialog();
         });    }
-
     private void showDeleteConfirmationDialog() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditTripActivity.this);
-        alertDialogBuilder.setMessage("Bạn có muốn xóa chuyến đi này!"); // (Giống code của bạn)
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditTrip.this);
+        alertDialogBuilder.setMessage("Can you want delete trip!"); 
 
-        alertDialogBuilder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Xóa chuyến đi này
                 deleteTrip();
             }
         });
-
-        alertDialogBuilder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Không làm gì
             }
         });
-
         alertDialogBuilder.show();
     }
     private void deleteTrip() {
         if (existingTrip != null) {
-            // Chạy trên background thread
             new Thread(() -> {
                 database.tripDao().delete(existingTrip);
-
-                // Sau khi xóa, quay lại màn hình danh sách
                 runOnUiThread(() -> {
-                    Toast.makeText(EditTripActivity.this, "Trip deleted.", Toast.LENGTH_SHORT).show();
-
-                    // === SỬA ĐỔI TẠI ĐÂY ===
-                    // Tạo Intent để về thẳng TripActivity
-                    Intent intent = new Intent(EditTripActivity.this, TripActivity.class);
-
-                    // Cờ này sẽ xóa TripDetailActivity và EditTrip khỏi ngăn xếp
-                    // Chỉ giữ lại TripActivity
+                    Toast.makeText(EditTrip.this, "Trip deleted.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(EditTrip.this, TripActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-
                     startActivity(intent);
                     finish();
-                    // =======================
                 });
             }).start();
         }
     }
-
     private void loadTripData(int id) {
         new Thread(() -> {
             existingTrip = database.tripDao().getTripById(id);
             if (existingTrip != null) {
-                // Hiển thị dữ liệu lên UI (phải chạy trên main thread)
                 runOnUiThread(() -> populateForm(existingTrip));
             }
         }).start();

@@ -7,26 +7,18 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Spinner;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.mobilefinal.R;
 import com.example.mobilefinal.database.AppDatabase;
 import com.example.mobilefinal.database.Trip;
 import com.google.android.material.textfield.TextInputEditText;
-
 import java.util.Calendar;
 
 public class AddTripActivity extends AppCompatActivity {
-
-    // --- UI Components ---
     private TextInputEditText etName, etLocation, etDate, etLength, etParticipants;
     private CheckBox cbParking, cbPermit;
     private Spinner spinnerDifficulty;
     private Button btnSave;
-
-    // --- Database ---
     private AppDatabase database;
 
     @Override
@@ -34,10 +26,7 @@ public class AddTripActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_trip);
 
-        // Get database instance
         database = AppDatabase.getDatabase(this);
-
-        // Find all views
         etName = findViewById(R.id.et_trip_name);
         etLocation = findViewById(R.id.et_trip_location);
         etDate = findViewById(R.id.et_trip_date);
@@ -47,54 +36,33 @@ public class AddTripActivity extends AppCompatActivity {
         cbPermit = findViewById(R.id.cb_permit);
         spinnerDifficulty = findViewById(R.id.spinner_trip_difficulty);
         btnSave = findViewById(R.id.btn_save_trip);
-
-        // --- Set Listeners ---
-
-        // Date Picker
         etDate.setOnClickListener(v -> showDatePickerDialog());
 
-        // Save Button
         btnSave.setOnClickListener(v -> {
             if (validateInput()) {
                 goToConfirmPage();
             }
         });
     }
-
     private void goToConfirmPage() {
-
-            // 1. Lấy dữ liệu từ các ô nhập liệu
             String name = etName.getText().toString();
             String location = etLocation.getText().toString();
             String date = etDate.getText().toString();
             boolean parking = cbParking.isChecked();
             boolean permit = cbPermit.isChecked();
-
-            // Xử lý số liệu (cần try-catch để tránh lỗi nếu để trống)
             double length = 0.0;
             int participants = 0;
             try {
                 length = Double.parseDouble(etLength.getText().toString());
                 participants = Integer.parseInt(etParticipants.getText().toString());
             } catch (NumberFormatException e) {
-                // Xử lý lỗi nếu cần
             }
-
             String difficulty = spinnerDifficulty.getSelectedItem().toString();
-
-            // 2. KHAI BÁO VÀ TẠO ĐỐI TƯỢNG tempTrip (Đây là bước bạn bị thiếu)
             Trip tempTrip = new Trip(name, location, date, parking, length, difficulty, permit, participants);
-
-            // 3. Chuyển sang trang Confirm
             Intent intent = new Intent(AddTripActivity.this, ConfimTripActivity.class);
-
-            // Gửi đối tượng tempTrip đi
             intent.putExtra("TRIP_DATA", tempTrip);
-
             startActivity(intent);
         }
-
-
     private boolean validateInput() {
         // You must add validation here as required by the coursework
         if (TextUtils.isEmpty(etName.getText().toString())) {
@@ -105,7 +73,6 @@ public class AddTripActivity extends AppCompatActivity {
             etLocation.setError("Location is required");
             return false;
         }
-        // ... add other validation ...
         return true;
     }
     private void showDatePickerDialog() {

@@ -27,7 +27,7 @@
             android:name=".Trip.AddTripActivity"
             android:label="Add New Trip" />
         <activity
-<<<<<<< HEAD
+
             android:name=".Trip.EditTripActivity"
             android:label="Edit Trip"/>
         <activity android:name=".Trip.TripDetailActivity" android:label="Trip Details"/>
@@ -35,12 +35,12 @@
         <activity android:name=".Trip.ConfimTripActivity" android:label="Confirm Trip" />
         <activity android:name=".Trip.SearchActivity" android:label="Search Trip" />
 
-=======
+        <activity
             android:name=".Trip.EditTrip"
             android:label="Edit Trip"/>
         <activity android:name=".Trip.TripDetailActivity" android:label="Trip Details"/>
         <activity android:name=".Observation.AddObservationActivity" android:label="Add Observation"/>
->>>>>>> 3f969490bbc306db4d04de7c3260f80c4db4e8fa
+
     </application>
 
 </manifest>

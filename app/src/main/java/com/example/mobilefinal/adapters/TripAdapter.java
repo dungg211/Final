@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mobilefinal.R;
-import com.example.mobilefinal.database.Trip; // (Import model Trip)
+import com.example.mobilefinal.database.Trip;
 
 import java.util.List;
 
@@ -17,7 +17,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
     private List<Trip> tripList;
     private final OnTripClickListener listener;
 
-    // Interface để xử lý sự kiện click (Sửa/Xóa)
     public interface OnTripClickListener {
         void onTripClick(Trip trip);
     }
@@ -39,33 +38,23 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripViewHolder
     @Override
     public void onBindViewHolder(@NonNull TripViewHolder holder, int position) {
         Trip currentTrip = tripList.get(position);
-
-        holder.tvName.setText(currentTrip.name); // (Tên biến phải khớp model Trip.java)
+        holder.tvName.setText(currentTrip.name);
         holder.tvLocation.setText(currentTrip.location);
         holder.tvDate.setText(currentTrip.date);
-
         String details = currentTrip.lengthKm + " km - " + currentTrip.difficultyLevel;
         holder.tvDetails.setText(details);
-
-        // Cài đặt sự kiện click cho "Sửa"
         holder.itemView.setOnClickListener(v -> listener.onTripClick(currentTrip));
     }
-
     @Override
     public int getItemCount() {
         return tripList.size();
     }
-
-    // Hàm để cập nhật dữ liệu từ Activity
     public void setTrips(List<Trip> trips) {
         this.tripList = trips;
         notifyDataSetChanged();
     }
-
-    // Lớp ViewHolder
     public static class TripViewHolder extends RecyclerView.ViewHolder {
         TextView tvName, tvLocation, tvDate, tvDetails;
-
         public TripViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.item_trip_name);

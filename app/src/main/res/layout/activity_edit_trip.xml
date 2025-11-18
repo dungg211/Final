@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
-    tools:context=".Trip.EditTripActivity"> <LinearLayout
-=======
-    tools:context=".Trip.EditTrip"> <LinearLayout
->>>>>>> 3f969490bbc306db4d04de7c3260f80c4db4e8fa
+
+    tools:context=".Trip.EditTripActivity">
+<LinearLayout
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"

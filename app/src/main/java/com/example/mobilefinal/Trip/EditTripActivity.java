@@ -60,18 +60,16 @@ public class EditTripActivity extends AppCompatActivity { // (Tên class là Edi
             }
         });
         btnDelete.setOnClickListener(v -> {
-            // Hiển thị hộp thoại xác nhận (giống code của bạn)
             showDeleteConfirmationDialog();
         });    }
 
     private void showDeleteConfirmationDialog() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditTripActivity.this);
-        alertDialogBuilder.setMessage("Bạn có muốn xóa chuyến đi này!"); // (Giống code của bạn)
+        alertDialogBuilder.setMessage("Bạn có muốn xóa chuyến đi này!");
 
         alertDialogBuilder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Xóa chuyến đi này
                 deleteTrip();
             }
         });
@@ -79,7 +77,7 @@ public class EditTripActivity extends AppCompatActivity { // (Tên class là Edi
         alertDialogBuilder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Không làm gì
+
             }
         });
 
@@ -87,25 +85,14 @@ public class EditTripActivity extends AppCompatActivity { // (Tên class là Edi
     }
     private void deleteTrip() {
         if (existingTrip != null) {
-            // Chạy trên background thread
             new Thread(() -> {
                 database.tripDao().delete(existingTrip);
-
-                // Sau khi xóa, quay lại màn hình danh sách
                 runOnUiThread(() -> {
                     Toast.makeText(EditTripActivity.this, "Trip deleted.", Toast.LENGTH_SHORT).show();
-
-                    // === SỬA ĐỔI TẠI ĐÂY ===
-                    // Tạo Intent để về thẳng TripActivity
                     Intent intent = new Intent(EditTripActivity.this, TripActivity.class);
-
-                    // Cờ này sẽ xóa TripDetailActivity và EditTrip khỏi ngăn xếp
-                    // Chỉ giữ lại TripActivity
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-
                     startActivity(intent);
                     finish();
-                    // =======================
                 });
             }).start();
         }
@@ -115,7 +102,6 @@ public class EditTripActivity extends AppCompatActivity { // (Tên class là Edi
         new Thread(() -> {
             existingTrip = database.tripDao().getTripById(id);
             if (existingTrip != null) {
-                // Hiển thị dữ liệu lên UI (phải chạy trên main thread)
                 runOnUiThread(() -> populateForm(existingTrip));
             }
         }).start();
@@ -137,7 +123,6 @@ public class EditTripActivity extends AppCompatActivity { // (Tên class là Edi
         }
     }
     private void updateTrip() {
-        // 1. Lấy tất cả dữ liệu từ form
         String name = etName.getText().toString();
         String location = etLocation.getText().toString();
         String date = etDate.getText().toString();

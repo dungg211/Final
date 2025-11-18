@@ -85,11 +85,7 @@ public class TripDetailActivity extends AppCompatActivity implements Observation
         // --- Cài đặt Listeners ---
         // 1. Nút Sửa Chuyến đi
         btnEditTrip.setOnClickListener(v -> {
-<<<<<<< HEAD
             Intent intent = new Intent(TripDetailActivity.this, EditTripActivity.class);
-=======
-            Intent intent = new Intent(TripDetailActivity.this, EditTrip.class);
->>>>>>> 3f969490bbc306db4d04de7c3260f80c4db4e8fa
             intent.putExtra("TRIP_ID", tripId);
             startActivity(intent);
         });

@@ -1,6 +1,6 @@
 package com.example.mobilefinal.adapters;
 
-// (Import các thư viện: LayoutInflater, List, TextView, RecyclerView, v.v.)
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +19,9 @@ public class ObservationAdapter extends RecyclerView.Adapter<ObservationAdapter.
     private List<Observation> observationList;
     private final OnObservationClickListener listener;
 
-    // Interface để Sửa/Xóa (theo yêu cầu )
     public interface OnObservationClickListener {
-        void onObsClick(Observation observation); // Sửa
-        void onObsLongClick(Observation observation); // Xóa
+        void onObsClick(Observation observation);
+        void onObsLongClick(Observation observation);
     }
 
     public ObservationAdapter(List<Observation> list, OnObservationClickListener listener) {
@@ -45,7 +44,6 @@ public class ObservationAdapter extends RecyclerView.Adapter<ObservationAdapter.
         holder.tvTime.setText(obs.observationTime);
         holder.tvComments.setText(obs.comments);
 
-        // Cài đặt click để Sửa/Xóa
         holder.itemView.setOnClickListener(v -> listener.onObsClick(obs));
         holder.itemView.setOnLongClickListener(v -> {
             listener.onObsLongClick(obs);
