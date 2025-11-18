@@ -1,5 +1,6 @@
-package com.example.mobilefinal; // (Hoặc package của bạn)
+package com.example.mobilefinal.Trip; // (Hoặc package của bạn)
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -9,14 +10,16 @@ import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 import android.app.DatePickerDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mobilefinal.R;
 import com.example.mobilefinal.database.AppDatabase;
 import com.example.mobilefinal.database.Trip;
 import com.google.android.material.textfield.TextInputEditText;
-import android.view.View;
+
 import java.util.Calendar;
 import androidx.appcompat.app.AlertDialog;
 import android.content.DialogInterface;
-public class EditTrip extends AppCompatActivity { // (Tên class là EditTrip)
+public class EditTripActivity extends AppCompatActivity { // (Tên class là EditTrip)
 
     private TextInputEditText etName, etLocation, etDate, etLength, etParticipants;
     private CheckBox cbParking, cbPermit;
@@ -62,7 +65,7 @@ public class EditTrip extends AppCompatActivity { // (Tên class là EditTrip)
         });    }
 
     private void showDeleteConfirmationDialog() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditTrip.this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditTripActivity.this);
         alertDialogBuilder.setMessage("Bạn có muốn xóa chuyến đi này!"); // (Giống code của bạn)
 
         alertDialogBuilder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
@@ -90,8 +93,19 @@ public class EditTrip extends AppCompatActivity { // (Tên class là EditTrip)
 
                 // Sau khi xóa, quay lại màn hình danh sách
                 runOnUiThread(() -> {
-                    Toast.makeText(EditTrip.this, "Trip deleted.", Toast.LENGTH_SHORT).show();
-                    finish(); // Đóng màn hình Edit
+                    Toast.makeText(EditTripActivity.this, "Trip deleted.", Toast.LENGTH_SHORT).show();
+
+                    // === SỬA ĐỔI TẠI ĐÂY ===
+                    // Tạo Intent để về thẳng TripActivity
+                    Intent intent = new Intent(EditTripActivity.this, TripActivity.class);
+
+                    // Cờ này sẽ xóa TripDetailActivity và EditTrip khỏi ngăn xếp
+                    // Chỉ giữ lại TripActivity
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    startActivity(intent);
+                    finish();
+                    // =======================
                 });
             }).start();
         }

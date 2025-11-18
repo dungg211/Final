@@ -36,4 +36,6 @@ public interface TripDao {
     // Get 1 trip by its ID (for editing)
     @Query("SELECT * FROM Trip WHERE id = :tripId")
     Trip getTripById(int tripId);
+    @Query("SELECT * FROM Trip WHERE name LIKE '%' || :query || '%' OR location LIKE '%' || :query || '%'")
+    LiveData<List<Trip>> searchTrips(String query);
 }

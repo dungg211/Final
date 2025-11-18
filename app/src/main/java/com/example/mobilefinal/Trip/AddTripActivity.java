@@ -1,6 +1,7 @@
-package com.example.mobilefinal;
+package com.example.mobilefinal.Trip;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mobilefinal.R;
 import com.example.mobilefinal.database.AppDatabase;
 import com.example.mobilefinal.database.Trip;
 import com.google.android.material.textfield.TextInputEditText;
@@ -54,10 +56,44 @@ public class AddTripActivity extends AppCompatActivity {
         // Save Button
         btnSave.setOnClickListener(v -> {
             if (validateInput()) {
-                saveTrip();
+                goToConfirmPage();
             }
         });
     }
+
+    private void goToConfirmPage() {
+
+            // 1. Lấy dữ liệu từ các ô nhập liệu
+            String name = etName.getText().toString();
+            String location = etLocation.getText().toString();
+            String date = etDate.getText().toString();
+            boolean parking = cbParking.isChecked();
+            boolean permit = cbPermit.isChecked();
+
+            // Xử lý số liệu (cần try-catch để tránh lỗi nếu để trống)
+            double length = 0.0;
+            int participants = 0;
+            try {
+                length = Double.parseDouble(etLength.getText().toString());
+                participants = Integer.parseInt(etParticipants.getText().toString());
+            } catch (NumberFormatException e) {
+                // Xử lý lỗi nếu cần
+            }
+
+            String difficulty = spinnerDifficulty.getSelectedItem().toString();
+
+            // 2. KHAI BÁO VÀ TẠO ĐỐI TƯỢNG tempTrip (Đây là bước bạn bị thiếu)
+            Trip tempTrip = new Trip(name, location, date, parking, length, difficulty, permit, participants);
+
+            // 3. Chuyển sang trang Confirm
+            Intent intent = new Intent(AddTripActivity.this, ConfimTripActivity.class);
+
+            // Gửi đối tượng tempTrip đi
+            intent.putExtra("TRIP_DATA", tempTrip);
+
+            startActivity(intent);
+        }
+
 
     private boolean validateInput() {
         // You must add validation here as required by the coursework
@@ -72,34 +108,6 @@ public class AddTripActivity extends AppCompatActivity {
         // ... add other validation ...
         return true;
     }
-
-    private void saveTrip() {
-        // Get all data from the form
-        String name = etName.getText().toString();
-        String location = etLocation.getText().toString();
-        String date = etDate.getText().toString();
-        boolean parking = cbParking.isChecked();
-        boolean permit = cbPermit.isChecked();
-        double length = Double.parseDouble(etLength.getText().toString());
-        int participants = Integer.parseInt(etParticipants.getText().toString());
-        String difficulty = spinnerDifficulty.getSelectedItem().toString();
-
-        // Create the new Trip object
-        Trip newTrip = new Trip(name, location, date, parking, length, difficulty, permit, participants);
-
-        // --- Save to Database (using a background thread) ---
-        // Room does not allow database operations on the main thread
-        new Thread(() -> {
-            database.tripDao().insert(newTrip);
-
-            // Show toast on the main thread after saving
-            runOnUiThread(() -> {
-                Toast.makeText(this, "Trip saved!", Toast.LENGTH_SHORT).show();
-                finish(); // Close this activity and go back to TripActivity
-            });
-        }).start();
-    }
-
     private void showDatePickerDialog() {
         Calendar cal = Calendar.getInstance();
         DatePickerDialog dialog = new DatePickerDialog(this,

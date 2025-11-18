@@ -3,6 +3,9 @@ package com.example.mobilefinal;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.example.mobilefinal.Trip.SearchActivity;
+import com.example.mobilefinal.Trip.TripActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
@@ -25,26 +28,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         bottomNavigation = findViewById(R.id.bottom_navigation);
         bottomNavigation.setSelectedItemId(R.id.nav_hike_plan);
-        bottomNavigation.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int itemId = item.getItemId();
+        bottomNavigation.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
 
-                if (itemId == R.id.nav_hike_plan) {
-                    Intent tripIntent = new Intent(MainActivity.this, MainActivity.class);
-                    startActivity(tripIntent);
-                    return true;
-                } else if (itemId == R.id.nav_trip) {
-                    Intent tripIntent = new Intent(MainActivity.this, TripActivity.class);
-                    startActivity(tripIntent);
-                    return true;
-                } else if (itemId == R.id.nav_profile) {
-                    Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
-                    startActivity(profileIntent);
-                    return true;
-                }
-                return false;
+            if (itemId == R.id.nav_hike_plan) {
+                return true; // Đang ở đây rồi, không làm gì
+            } else if (itemId == R.id.nav_trip) {
+                startActivity(new Intent(getApplicationContext(), TripActivity.class));
+                overridePendingTransition(0, 0); // Tắt hiệu ứng chuyển cảnh để mượt hơn
+                return true;
+            } else if (itemId == R.id.nav_search) {
+                startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+                overridePendingTransition(0, 0);
+                return true;
             }
+            return false;
         });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

@@ -21,18 +21,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".TripActivity"
+            android:name=".Trip.TripActivity"
             android:label="My Trips" />
-
         <activity
-            android:name=".ProfileActivity"
-            android:label="My Profile" />
-        <activity
-            android:name=".AddTripActivity"
+            android:name=".Trip.AddTripActivity"
             android:label="Add New Trip" />
         <activity
-            android:name=".EditTrip"
+            android:name=".Trip.EditTripActivity"
             android:label="Edit Trip"/>
+        <activity android:name=".Trip.TripDetailActivity" android:label="Trip Details"/>
+        <activity android:name=".Observation.AddObservationActivity" android:label="Add Observation"/>
+        <activity android:name=".Trip.ConfimTripActivity" android:label="Confirm Trip" />
+        <activity android:name=".Trip.SearchActivity" android:label="Search Trip" />
+
     </application>
 
 </manifest>
