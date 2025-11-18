@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 // Import các tệp mới
+<<<<<<< HEAD
 import com.example.mobilefinal.MainActivity;
+=======
+>>>>>>> 3f969490bbc306db4d04de7c3260f80c4db4e8fa
 import com.example.mobilefinal.R;
 import com.example.mobilefinal.adapters.TripAdapter;
 import com.example.mobilefinal.database.AppDatabase; // (Import AppDatabase)
