@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="6dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E6FFFFFF"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/item_trip_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="@android:color/black"
+            tools:text="Trip to Da Nang" />
+
+        <TextView
+            android:id="@+id/item_trip_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBaseline="@id/item_trip_name"
+            android:textColor="@android:color/darker_gray"
+            tools:text="20/11/2025" />
+
+        <TextView
+            android:id="@+id/item_trip_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_trip_name"
+            android:layout_marginTop="4dp"
+            android:textColor="@android:color/black"
+            tools:text="Da Nang, Vietnam" />
+
+        <TextView
+            android:id="@+id/item_trip_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_trip_location"
+            android:layout_marginTop="8dp"
+            android:textColor="@android:color/black"
+            tools:text="15.0 km - Easy" />
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>
